@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Flighty</title>
+    <style>
+      
+      @font-face {
+        font-family: myFirstFont;
+        src: url("static/OPTIMA.TTF");
+      }
+
+      * {
+        font-family: myFirstFont;
+      }
+      </style>
+</head>
+<body>
+    <div class="page-header">
+      <center><h1><b>Flighty</b></h1></center>
+      <center><h4>Flying made easy</h4></center>
+    </div>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <!-- <a class="navbar-brand" href="{{ url_for('home') }}">Home</a> -->
+        <p class="navbar-text mr-auto navbar-nav">Hello {{ session['uname'] }}</p>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('profile') }}" id="profileButton">Profile</a>
+            </li>
+            <li class="nav-item active" >
+              <a class="nav-link" href="{{ url_for('bookticket') }}" id="bookButton">Book Ticket</a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" href="{{ url_for('logout') }}" id="logoutButton">Log Out</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    {% if error %}
+      <div class="flash alert alert-danger justify-content-center mt-4 w-50 mx-auto">{{ error }}</div>
+    {% endif %}
+    <div class="d-flex justify-content-center pt-5 pb-5">
+      <form method="post">
+        
+        <div class="form-group">
+            <label for="inputsrc">Flight From:</label>
+            <select id="inputsrc" class="form-control" name="inputsrc">
+                <option selected>Choose...</option>
+                <option value="Chandigarh">Chandigarh, Chandigarh, India</option>
+                <option value="Delhi">Delhi, Delhi, India</option>
+                <option value="Fort Worth">Fort Worth, Texas, United States</option>
+                <option value="Frankfurt">Frankfurt,Hesse,Germany</option>
+                <option value="Houston">Houston, Texas, United States</option>
+                <option value="Louisville">Louisville, Kentucky, United States</option>
+                <option value="Mumbai">Mumbai, Maharashtra, India</option>
+                <option value="New York City">New York City, New York, United States</option>
+                <option value="San Francisco">San Francisco, California, United States</option>
+                <option value="Tampa">Tampa, Florida, United States</option>
+                <!-- <option value="Option">Option</option> -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="inputdest">Flight To:</label>
+            <select id="inputdest" class="form-control" name="inputdest">
+                <option selected>Choose...</option>
+                <option value="Chandigarh">Chandigarh, Chandigarh, India</option>
+                <option value="Delhi">Delhi, Delhi, India</option>
+                <option value="Fort Worth">Fort Worth, Texas, United States</option>
+                <option value="Frankfurt">Frankfurt,Hesse,Germany</option>
+                <option value="Houston">Houston, Texas, United States</option>
+                <option value="Louisville">Louisville, Kentucky, United States</option>
+                <option value="Mumbai">Mumbai, Maharashtra, India</option>
+                <option value="New York City">New York City, New York, United States</option>
+                <option value="San Francisco">San Francisco, California, United States</option>
+                <option value="Tampa">Tampa, Florida, United States</option>
+                <!-- <option value="Option">Option</option> -->
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" value="select_srcdest" name="submit_button">Check available Flights</button>
+      
+      <!-- <form target="{{ url_for('payment') }}" method="post"> -->
+        {% if flights %}
+          {% for flight in flights %}
+          <div class="card mt-3 form-row form-group">
+            <div class="card-body">
+              Ticket details : {{ flight['flight_id'] }}
+              <br>
+              <!--using flask-->
+              <small>{{ flight['source'] }} : {{ flight['departure'] }}</small>
+              <span class="badge badge-success">{{ airports['flight_id'] }}</span>
+              <hr>
+              <small>{{ flight['destination'] }} : {{ flight['arrival'] }}</small>
+              <span class="badge badge-info">{{ airports['arrival'] }}</span>
+              <button type="submit" class="btn btn-primary float-right" name="submit_button" value="{{ flight['flight_id'] }}">Book Ticket</button><!--using flask-->
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+        <!-- </form> -->
+
+      
+      <br>
+      <small id="bookDisc" class="text-muted">Your passport number will be verified before proceeding to payment.</small>
+    </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

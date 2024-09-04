@@ -1,0 +1,39 @@
+{% extends 'admin_base.html' %}
+{% block profile_active %}active{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+<div class="jumbotron justify-content-center mx-auto mt-5 signup">
+    {% if result %}
+    
+        <table id="users" class="table table-bordered">
+            <tr class="table-info">
+                <th>Flight ID</th>
+                <th>Arrival</th>
+                <th>Departure</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Route</th>
+                <th>Model</th>
+                <th>Manufacturer</th>
+            </tr>
+            {% for row in result %}
+            <tr class="table-info">
+                <td> {{ row['flight_id'] }}</td>
+                <td> {{ row['arrival'] }}</td>
+                <td> {{ row['departure'] }}</td>
+                <td> {{ row['source'] }}</td>
+                <td> {{ row['destination'] }}</td>
+                <td> {{ row['route'] }}</td>
+                <td> {{ row['model'] }}</td>
+                <td> {{ row['manufacturer'] }}</td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+    
+    {% endif %}
+</div>
+</form>
+{% endblock %}

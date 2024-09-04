@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}User Profile{% endblock %}
+{% block profile_active %}active{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+<div class="jumbotron justify-content-center mx-auto mt-5 signup"  style="width: 400px;">
+    {% if result %}
+    
+        <table id="users" class="table table-bordered">
+            
+            {% for row in result %}
+                <tr class="table-info">
+                    <th scope="row">Username</th>
+                    <td>{{ row['uname']}}</td>
+                </tr>
+                <tr class="table-info">
+                    <th scope="row">Passport No.</th>
+                    <td>{{ row['pno']}}</td>
+                </tr>
+                <tr class="table-info">
+                    <th scope="row">First Name</th>
+                    <td>{{ row['first_name']}}</td>
+                </tr>
+                <tr class="table-info">
+                    <th scope="row">Last Name</th>
+                    <td>{{ row['last_name']}}</td>
+                </tr>
+                <tr class="table-info">
+                    <th scope="row">Date of Birth</th>
+                    <td>{{ row['DOB']}}</td>
+                </tr>
+                <tr class="table-info">
+                    <th scope="row">Phone No.</th>
+                    <td>{{ row['phone_no']}}</td>
+                </tr>
+                <tr class="table-info">
+                    <th scope="row">Address</th>
+                    <td>{{ row['address']}}</td>
+                </tr>
+            {% endfor %}
+            
+        </table>
+        <button type="submit" class="btn btn-primary btn-block" name="submit_button" value="update">Update</button>
+    
+    {% endif %}
+</div>
+    {% if tickets %}
+        <div class="accordion" id="accordionTkt">
+        {% for ticket in tickets %}
+            <hr>
+                <div class="card text-center d-flex justify-content-center mx-auto w-75 mb-2">
+                    <div class="card-header" id="heading{{ loop.index }}">
+                        <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                            {{ ticket['source'] }} <small>to</small> {{ ticket['destination'] }}
+                        </button>
+                    </div>
+                    <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordionTkt">
+                        <div class="card-body">
+                        <h5 class="card-title">Ticket ID: {{ ticket['ticket_id'] }}, Flight No. {{ ticket['flight_id'] }}</h5>
+                        <p class="card-text">Departure: {{ ticket['departure'] }} Arrival: {{ ticket['arrival'] }}</p>
+                        <button type="submit" class="btn btn-danger" name="submit_button" value="{{ ticket['ticket_id'] }}">Cancel Booking</button>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <p>Status: {{ ticket['status'] }}</p>
+                    </div>
+                </div>
+                
+        {% endfor %}
+        </div>
+    {% endif %}
+</form>
+{% endblock %}
